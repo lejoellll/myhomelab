@@ -1,2 +1,2 @@
 # myhomelab
-Dokumentation meines Homelabs, Smart Home Setups und ESP32-Projekten
+Documentation of my home lab, smart home setups, and ESP32 projects.
