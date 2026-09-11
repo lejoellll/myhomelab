@@ -2,11 +2,7 @@
 
 Welcome to my homelab repository!
 
-This repository documents my homelab, smart-home setup, and ESP32 projects.
-
-The goal is to build practical and privacy-conscious solutions for everyday tasks, reduce reliance on cloud services, and learn by designing, configuring, troubleshooting, and improving my own infrastructure.
-
-As I continue down this rocky path, I will document my projects, configurations, challenges, and everything I learn along the way.
+This repository documents my homelab, smart-home setup, and ESP32 projects. The goal is to build practical and privacy-conscious solutions for everyday tasks, reduce reliance on cloud services, and learn by designing, configuring, troubleshooting, and improving my own infrastructure. As I continue down this rocky path, I will document my projects, configurations, challenges, and everything I learn along the way.
 
 **Tech stack**: OPNsense, Home Assistant, Proxmox, ESP32
 ___
@@ -17,8 +13,6 @@ In addition, I created a rough overview of all the steps I have already taken or
 [Progress Status](Docs/Progress%20status.md) and see what step comes next.
 
 After a year, I can tell you with certainty that I won't remember decisions I made. Recording the most important steps in the [Logbook](Docs/Logbook.md) may help me to understand why I made certain choices along the way. 
-
-___
 
 ## Documentation
 
