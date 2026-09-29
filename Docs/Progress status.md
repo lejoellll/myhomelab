@@ -5,10 +5,10 @@
 - [x] Basic OPNsense configuration (internet works, LAN reachable, simple single-network setup)
 - [x] Set up DHCP & DNS on the network – no VLANs yet
 - [x] Install Tailscale 
-- [ ] Install Proxmox
-- [ ] Basic Proxmox configuration (network, storage, updates)
-- [ ] Create first test VM or container on Proxmox
-- [ ] Set up and get the first real service running
+- [x] Install Proxmox
+- [x] Basic Proxmox configuration (network, storage, updates)
+- [x] Create first test VM or container on Proxmox
+- [x] Set up and get the first real service running
 
 ## Phase 2 – Improve & expand (iterative, partly redundant with phase 1)
 
