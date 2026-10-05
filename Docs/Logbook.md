@@ -1,6 +1,6 @@
 # Logbook
 
-This section documents changes, experiments, and fixes across my homelab. The goal is to keep track of what I did and why, so I can look back months or years later and understand past decisions — and see how the setup has evolved over time.
+This section documents changes, experiments, and fixes across my homelab. The goal is to keep track of what I did and why, so I can look back months or years later and understand past decisions - and see how the setup has evolved over time.
 
 Each entry follows a simple structure: **Date**, **Topic**, **Initial State**, **End State** and **Learnings** (plus optional notes on affected components or next steps).
 
