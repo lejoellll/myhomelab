@@ -16,6 +16,6 @@ After a year, I can tell you with certainty that I won't remember decisions I ma
 
 ## Documentation
 
-[Hardware](Docs/Hardware/Overview.md),
+[Hardware](Docs/Hardware/Infrastructure.md),
 [Network](Docs/Network/Overview.md) &
 [Services](Docs/Services/Overview.md)

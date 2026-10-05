@@ -12,9 +12,9 @@
 
 ## Phase 2 – Improve & expand (iterative, partly redundant with phase 1)
 
-- [ ] Structure the network: introduce VLANs (management, servers, IoT, guests, ...)
-- [ ] Adapt/split DHCP & DNS to match the VLAN structure
-- [ ] Refine firewall rules between the new networks
+- [x] Structure the network: introduce VLANs (management, servers, IoT, guests, ...)
+- [x] Adapt/split DHCP & DNS to match the VLAN structure
+- [x] Refine firewall rules between the new networks
 - [ ] Further harden access (2FA, certificates, possibly site-to-site VPN/WireGuard alongside/instead of Tailscale)
 - [ ] Refine the Proxmox setup (backups, roles/permissions, possibly clustering)
 - [ ] Set up additional services and clean up existing ones
