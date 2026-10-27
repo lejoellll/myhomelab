@@ -59,7 +59,7 @@ Each entry follows a simple structure: **Date**, **Topic**, **Initial State**, *
     **Source Port**: Any\
     **Destination**: __qfeeds_malware_ip\
     **Dest. Port**: Any\
-    **State Type**: keep state\
+    **State Type**: Keep state\
     **Log**: Enabled
 
 **Learning**: Q-Feeds extends DNS-based filtering with IP-based threat intelligence blocking. The plugin loads known malware IP addresses into the alias, which is used as a block target via a firewall rule.
@@ -71,7 +71,7 @@ Each entry follows a simple structure: **Date**, **Topic**, **Initial State**, *
 **End State**: 
 * Created a destination NAT rule to redirect all NTP requests to OPNsense on UDP port 123.
 
-    **Interface**:  any\
+    **Interface**:  Any\
     **Version**:    IPv4\
     **Protocol**:   UDP\
     **Source**:     Local_Net\
@@ -83,7 +83,7 @@ Each entry follows a simple structure: **Date**, **Topic**, **Initial State**, *
 
 * Created a corresponding firewall rule to allow inter-VLAN traffic.
 
-    **Interface**:  all VLANs\
+    **Interface**:  All VLANs\
     **Quick**:      Enabled\
     **Action**:     Pass\
     **Direction**:  In\
@@ -93,7 +93,7 @@ Each entry follows a simple structure: **Date**, **Topic**, **Initial State**, *
     **Source Port**: Any\
     **Destination**: This Firewall\
     **Dest. Port**: NTP(123)\
-    **State Type**: keep state
+    **State Type**: Keep state
 
 * Tested the new settings with my laptop by sending an NTP request to a Cloudflare NTP server while capturing packets on the WAN and VLAN10 interfaces: `w32tm /stripchart /computer:162.159.200.1 /dataonly /samples:5`
 
@@ -134,7 +134,7 @@ Each entry follows a simple structure: **Date**, **Topic**, **Initial State**, *
 
 * Extended the autostart file to put the Pi5 into the kiosk mode and start directly with the dashboard page.
 ```bash
-        db-admin@Dashboard:~ $ nano .config/labwc/autostart
+        nano .config/labwc/autostart
         /usr/bin/chromium \
         --password-store=basic \
         --kiosk \
@@ -143,7 +143,7 @@ Each entry follows a simple structure: **Date**, **Topic**, **Initial State**, *
         --no-first-run \
         --enable-features=OverlayScrollbar \
         --start-maximized \
-        'https://haos.lan.internal:8123/dashboard-panel/ubersicht' &
+        'https://homeassistant.local:8123/dashboard-panel/ubersicht' &
 ```
 **Learnings**: 
 - Chromium’s `--kiosk` mode starts the browser fullscreen without UI elements, making it suitable for a dashboard display.
@@ -199,8 +199,8 @@ Each entry follows a simple structure: **Date**, **Topic**, **Initial State**, *
     * Vlan Tag: 20
     * Model VirtIO
 
-    * SSH into Promox and imported the downloaded image into the VM.
-    *qm importdisk 101 /tmp/haos_ova-18.3.qcow2.xz local-lvm*
+    * SSH into Promox and imported the downloaded image into the VM.\
+    `qm importdisk 101 /tmp/haos_ova-18.3.qcow2.xz local-lvm`
 
     * Attached it as scsi0, and set it as the first boot device. 
 
@@ -236,7 +236,7 @@ Each entry follows a simple structure: **Date**, **Topic**, **Initial State**, *
     * swap:     512
     * hostname: adguard
     * os:       debian-12-standard_12.12-1_amd64.tar.zst
-    * net0:     name=eth0, bridge=vmbr0, tag=20, firewall=1, ip=10.10.20.130/24, gw=10.10.20.1, ip6=dhcp
+    * net0:     name=eth0, bridge=vmbr0, tag=<VLAN_ID>, firewall=1, ip=<ADGUARD_IP>/24, gw=<GATEWAY_IP>, ip6=dhcp
     * unprivileged: 1
 
 * Ran AdGuard Home's official install script:
@@ -247,11 +247,11 @@ Each entry follows a simple structure: **Date**, **Topic**, **Initial State**, *
 
 * Created five firewall rules for Adguard Home:
 
-    * Adguard Home → OPNsense (port 53 & 53053)
-    * Adguard Home → Blocklist Updates (port 443)
-    * Adguard Home X Internet (port 80)
-    * Trusted → AH101 WebGUI (port 80)
-    * Trusted → DNS Request (AH101)
+    * AdGuard Home → OPNsense DNS (TCP/UDP 53 and 53053)
+    * AdGuard Home → Internet for blocklist updates (TCP 443)
+    * AdGuard Home → Internet (TCP 80)
+    * Trusted → AdGuard Home web GUI (TCP 80)
+    * Trusted → AdGuard Home DNS (TCP/UDP 53)
 
 **Learnings**: Without any firewall rules the whole traffic is blocked by the implicit deny rule. 
 
@@ -309,8 +309,8 @@ Client (DNS Request) → Adguard Home (DNS-Proxy) → DNSmasq (local domain name
 
 * Finally there are two entries:
 
-    * [/lan.internal/]192.168.10.1:53053 (DNSmasq)
-    * 192.168.10.1:53 (Unbound)
+    * [/lan.internal/]<DNSmasq_IP>:<DNSmasq_PORT>
+    * <UNBOUND_IP>:53
 
 **Learnings**: Learned the difference between a DNS resolver and a DNS forwarder, and that Adguard Home is just a DNS proxy - nothing more, nothing less. Cloudflare and smiliar services are public DNS resolvers, while Unbound keeps resolution private.
 
@@ -318,15 +318,15 @@ Client (DNS Request) → Adguard Home (DNS-Proxy) → DNSmasq (local domain name
 
 **Initial State**: It is not working properly, yet.
 
-✅ nslookup ap.lan.internal 192.168.10.1:53053 (DNSmasq)
+✅ nslookup ap.lan.internal <DNSmasq_IP>:<DNSmasq_PORT>
 
-❌ nslookup ap.lan.internal 192.168.10.130 (Adguard Home)
+❌ nslookup ap.lan.internal <ADGUARDHOME_IP>
 
 AdGuard Home doesn't know how to handle local domain name resolutions, resulting in an error.
 
 **End State**: 
 * Added an entry in DNS Settings > Upstream DNS servers for a domain-specific upstream for lan.internal:  
-[/lan.intternal/]192.168.10.1:53053
+[/lan.internal/]<DNSmasq_IP>:<DNSmasq_PORT>
 
 * Under DNSmasq > General, I enabled 'Register ISC DHCP4 leases'.
 
