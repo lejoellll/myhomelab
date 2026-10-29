@@ -4,6 +4,19 @@ This section documents changes, experiments, and fixes across my homelab. The go
 
 Each entry follows a simple structure: **Date**, **Topic**, **Initial State**, **End State** and **Learnings** (plus optional notes on affected components or next steps).
 
+## 2026-10-28 - Setting up Telekom's fibre connection
+
+**Initial State:** No fibre connection, just broadband internet was in use.
+
+**End State:**
+* Bound VLAN07 to the physical WAN (igb0) interface under **Interfaces > Devices > VLAN**
+* Created a Point-to-Point device under **Interfaces > Devices > Point-to-Point**
+    * Selected VLAN07 as the link Interface
+    * Entered the login credentials
+* Changed the device to the PPPoE VLAN07 and set both the IPv4 and IPv6 configuration types to PPPoE under **Interfaces > Assignment** 
+
+**Learning:** Telekom’s fibre connection requires VLAN07 tagged traffic to work properly.
+
 ## 2026-10-26 - Create a root CA and server certificates signed by the new root CA
 
 **Initial State:** All web GUIs were unencrypted. To improve security, I implemented TLS encryption by creating a root CA and issuing server certificates signed by it.
